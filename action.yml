@@ -1,5 +1,5 @@
-name: "Linter Evaluator"
-description: "Greet someone and record the time"
+name: "Stylelint Evaluator"
+description: "Stylelint evaluator"
 inputs:
   token:
     description: "The GitHub token to use for making API requests"
