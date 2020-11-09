@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const buildFeedbackMessage = require('./feedbackMessage');
-const runEslint = require('./runEslint');
+const runStylelint = require('./runStylelint');
 const runNpm = require('./runNpm');
 
 const run = async () => {
@@ -11,20 +11,20 @@ const run = async () => {
     const client = github.getOctokit(token);
     const { owner, repo, number } = github.context.issue;
     const npmStatus = runNpm(root);
-    const { status: eslintStatus, outcomes: eslintOutcomes } = runEslint(root);
-    const status = npmStatus + eslintStatus;
-    const feedbackMessage = buildFeedbackMessage(eslintOutcomes, root);
+    const { status: stylelintStatus, outcomes: stylelintOutcomes } = runStylelint(root);
+    const status = npmStatus + stylelintStatus;
+    // const feedbackMessage = buildFeedbackMessage(stylelintOutcomes, root);
 
     console.log('Exit code:', status);
-    console.log('All errors:', eslintOutcomes);
-    console.log('Feedback message:\n', feedbackMessage);
+    console.log('All errors:', stylelintOutcomes);
+    // console.log('Feedback message:\n', feedbackMessage);
 
-    await client.issues.createComment({
-      owner,
-      repo,
-      issue_number: number,
-      body: feedbackMessage,
-    });
+    // await client.issues.createComment({
+    //   owner,
+    //   repo,
+    //   issue_number: number,
+    //   body: feedbackMessage,
+    // });
 
     process.exit(status);
   } catch (error) {
