@@ -1,6 +1,6 @@
-# ESLint Linter Action
+# Stylelint Linter Action
 
-A GitHub action that evaluates projects with [ESLint](https://eslint.org/) and comments the evaluation outcome on the student's pull request.
+A GitHub action that evaluates projects with [Stylelint](https://stylelint.io/) and comments the evaluation outcome on the student's pull request.
 
 ## Inputs
 
@@ -20,87 +20,72 @@ steps:
     with:
       node-version: '12'
   - name: Static code analysis step
-    uses: betrybe/eslint-linter-action@v2
+    uses: betrybe/stylelint-linter-action@v1
     with:
       token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Check the latest version to use [here](https://github.com/betrybe/eslint-linter-action/releases).
+Check the latest version to use [here](https://github.com/betrybe/stylelint-linter-action/releases).
 
 ## Project constraints
 
-In order for the action to comment the `ESLint` analysis on the pull request, you must:
+In order for the action to comment the `Stylelint` analysis on the pull request, you must:
 
-1. Add `ESLint` into your project's dependencies.
+1. Add `Stylelint` into your project's dependencies.
 
-1. Configure the `ESLint` analysis **exclusively** via `.eslintrc.json`.
+1. Configure the `Stylelint` analysis **exclusively** via `.stylelintrc.json`.
 
-### Add `ESLint` into your project's dependencies
+### Add `Stylelint` into your project's dependencies
 
-In order to add `ESLint` into your project you must add `ESLint` as a `dev` dependency:
+In order to add `Stylelint` into your project you must add `Stylelint` and its `standard configuration` as a `dev` dependency:
 
 ```shell
-npm install eslint --save-dev
+npm install stylelint stylelint-config-standard --save-dev
 ```
 
-If you have multiple projects to be evaluated with `ESLint` in the repository, you must add `ESLint` to each project. Beware that each project must have the **same** `ESLint` version, in order to **ensure** that **all** projects are being evaluated under the same conditions (i.e., the same `ESLint` version).
+If you have multiple projects to be evaluated with `Stylelint` in the repository, you must add `Stylelint` to each project. Beware that each project must have the **same** `Stylelint` version, in order to **ensure** that **all** projects are being evaluated under the same conditions (i.e., the same `Stylelint` version).
 
-### Configure the `ESLint` analysis **exclusively** via `.eslintrc.json`
+### Configure the `Stylelint` analysis **exclusively** via `.stylelintrc.json`
 
-In order to configure the `ESLint` analysis for your project, you must create a `.eslintrc.json` file at the root of your project. Therefore, beware the following:
+In order to configure the `Stylelint` analysis for your project, you must create a `.stylelintrc.json` file at the root of your project. Therefore, beware the following:
 
-- There cannot be present `ESLint` configurations in the `package.json` of the project;
+- There cannot be present `Stylelint` configurations in the `package.json` of the project;
 
 - There cannot be present inline configurations.
 
-Here follows an example for `.eslintrc.json`:
+Here follows an example for `.stylelintrc.json`:
 
 ```json
 {
-  "env": {
-    "es6": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 6
-  },
+  "extends": "stylelint-config-standard",
   "rules": {
-    "no-console": "error",
-    "semi": "error",
-    "max-params": ["error", 2]
+    "block-no-empty": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
+    "identation": [
+      2,
+      {
+        "except": ["value"],
+        "severity": "warning"
+      }
+    ]
   }
 }
 ```
 
-If you have multiple projects to be evaluated with `ESLint` in the repository, you must do the following:
+If you have multiple projects to be evaluated with `Stylelint` in the repository, you must do the following:
 
-- Create a `.eslintrc.json` file **at the root of each project**. There cannot be present a `.eslintrc.json` at **the root of the repository**;
-
-- Add `"root": true` for each `.eslintrc.json`, in order to **ensure** the `ESLint` analysis for one project does not use `ESLint` configured in another project in your repository.
-
-Here follows an example for `.eslintrc.json` defined in one of the projects in your repository:
-
-```json
-{
-  "root": true,
-  "env": {
-    "es6": true
-  },
-  "parserOptions": {
-    "ecmaVersion": 6
-  },
-  "rules": {
-    "no-console": "error",
-    "semi": "error",
-    "max-params": ["error", 2]
-  }
-}
-```
+- Create a `.stylelintrc.json` file **at the root of each project**. There cannot be present a `.stylelintrc.json` at **the root of the repository**;
 
 #### Using plugins
 
-You can use plugins in the configuration file `.eslintrc.json`. However, beware to follow the instructions as stated in the plugin's documentation and install all dependencies associated with the plugin. There cannot be any warning raised by `npm` stating uninstalled plugin dependencies when installing a project; otherwise you will have an incomplete `ESLint` analysis environment.
+You can use plugins in the configuration file `.stylelintrc.json`. However, beware to follow the instructions as stated in the plugin's documentation and install all dependencies associated with the plugin. There cannot be any warning raised by `npm` stating uninstalled plugin dependencies when installing a project; otherwise you will have an incomplete `Stylelint` analysis environment.
 
-For more information related to configuring `ESLint` with `.eslintrc.json`, read its [guide](https://eslint.org/docs/user-guide/configuring).
+For more information related to configuring `Stylelint` with `.stylelintrc.json`, read its [guide](https://stylelint.io/user-guide/configure#plugins).
 
 ## Development
 
@@ -156,7 +141,7 @@ See the [versioning documentation](https://github.com/actions/toolkit/blob/maste
 You can now consume the action by referencing the v1 branch
 
 ```yaml
-uses: betrybe/eslint-linter-action@v1
+uses: betrybe/stylelint-linter-action@v1
 ```
 
-See the [actions tab](https://github.com/betrybe/eslint-linter-action/actions) for runs of this action! :rocket:
+See the [actions tab](https://github.com/betrybe/stylelint-linter-action/actions) for runs of this action! :rocket:
