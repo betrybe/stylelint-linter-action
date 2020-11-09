@@ -1,0 +1,97 @@
+[
+  {
+    "filePath": "/my-react-project/src/App.js",
+    "messages": [],
+    "errorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  },
+  {
+    "filePath": "/my-react-project/src/components/Greeting.js",
+    "messages": [
+      {
+        "ruleId": "react/prop-types",
+        "severity": 2,
+        "message": "'name' is missing in props validation",
+        "line": 3,
+        "column": 21,
+        "nodeType": "Property",
+        "endLine": 3,
+        "endColumn": 25
+      },
+      {
+        "ruleId": "react/jsx-one-expression-per-line",
+        "severity": 2,
+        "message": "`Hello, ` must be placed on a new line",
+        "line": 3,
+        "column": 36,
+        "nodeType": "JSXText",
+        "endLine": 3,
+        "endColumn": 43,
+        "fix": {
+          "range": [
+            63,
+            70
+          ],
+          "text": "\nHello,"
+        }
+      },
+      {
+        "ruleId": "react/jsx-one-expression-per-line",
+        "severity": 2,
+        "message": "`{name}` must be placed on a new line",
+        "line": 3,
+        "column": 43,
+        "nodeType": "JSXExpressionContainer",
+        "endLine": 3,
+        "endColumn": 49,
+        "fix": {
+          "range": [
+            70,
+            76
+          ],
+          "text": "\n{' '}\n{name}\n"
+        }
+      },
+      {
+        "ruleId": "semi",
+        "severity": 2,
+        "message": "Missing semicolon.",
+        "line": 5,
+        "column": 24,
+        "nodeType": "ExportDefaultDeclaration",
+        "endLine": 6,
+        "endColumn": 1,
+        "fix": {
+          "range": [
+            107,
+            107
+          ],
+          "text": ";"
+        }
+      }
+    ],
+    "errorCount": 4,
+    "warningCount": 0,
+    "fixableErrorCount": 3,
+    "fixableWarningCount": 0,
+    "source": "import React from 'react';\n\nconst Greeting = ({ name }) => <h1>Hello, {name}</h1>;\n\nexport default Greeting\n"
+  },
+  {
+    "filePath": "/my-react-project/src/index.js",
+    "messages": [],
+    "errorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  },
+  {
+    "filePath": "/my-react-project/src/setupTests.js",
+    "messages": [],
+    "errorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "filePath": "/back-end/index.js",
+    "messages": [
+      {
+        "ruleId": "no-console",
+        "severity": 1,
+        "message": "Unexpected console statement.",
+        "line": 8,
+        "column": 5,
+        "nodeType": "MemberExpression",
+        "messageId": "unexpected",
+        "endLine": 8,
+        "endColumn": 16
+      }
+    ],
+    "errorCount": 0,
+    "warningCount": 1,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "var bar = function (x, y, z, a) {\n    return x + y + z + a;\n}\n\nvar isEven = function (number) {\n    var isNumberOdd = number % 2 === 0;\n\n    console.log('Is number even?', isNumberOdd);\n\n    return isNumberOdd;\n}\n",
+    "usedDeprecatedRules": []
+  }
+]

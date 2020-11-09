@@ -1,0 +1,33 @@
+[
+  {
+    "filePath": "/my-project/index.js",
+    "messages": [
+      {
+        "ruleId": "max-params",
+        "severity": 2,
+        "message": "Function 'isPentagon' has too many parameters (5). Maximum allowed is 4.",
+        "line": 1,
+        "column": 1,
+        "nodeType": "FunctionDeclaration",
+        "messageId": "exceed",
+        "endLine": 1,
+        "endColumn": 20
+      }
+    ],
+    "errorCount": 1,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "function isPentagon(angle1, angle2, angle3, angle4, angle5) {\n  return angle1 + angle2 + angle3 + angle4 + angle5 === 540;\n}\n",
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "/my-project/utils.js",
+    "messages": [],
+    "errorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  }
+]
