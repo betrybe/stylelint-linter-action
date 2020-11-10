@@ -5,19 +5,19 @@ describe('Find files in directory', () => {
 
   describe('Files are found', () => {
     test('When one file is found, a one element list containing it is returned', () => {
-      const startPath = `${rootDirectory}/__tests__/fixtures/projects/back-end`;
-      const givenResult = findFilesBy(startPath, '.eslintrc.json');
-      const expectedResult = [`${startPath}/.eslintrc.json`];
+      const startPath = `${rootDirectory}/__tests__/fixtures/projects/front-end`;
+      const givenResult = findFilesBy(startPath, '.stylelintrc.json');
+      const expectedResult = [`${startPath}/.stylelintrc.json`];
 
       expect(givenResult).toEqual(expectedResult);
     });
 
     test('When multiple files are found, a list containing them is returned', () => {
       const startPath = `${rootDirectory}/__tests__/fixtures/projects/monorepo`;
-      const givenResult = findFilesBy(startPath, '.eslintrc.json').sort();
+      const givenResult = findFilesBy(startPath, '.stylelintrc.json').sort();
       const expectedResult = [
-        `${startPath}/api/.eslintrc.json`,
-        `${startPath}/front-end/.eslintrc.json`,
+        `${startPath}/front-end-1/.stylelintrc.json`,
+        `${startPath}/front-end-2/.stylelintrc.json`,
       ];
 
       expect(givenResult).toEqual(expectedResult);
@@ -34,7 +34,7 @@ describe('Find files in directory', () => {
 
     test('When the directory does not exist, an empty list is returned', () => {
       const startPath = `${rootDirectory}/non/existent/path`;
-      const givenResult = findFilesBy(startPath, '.eslintrc.json');
+      const givenResult = findFilesBy(startPath, '.stylelintrc.json');
 
       expect(givenResult).toEqual([]);
     });
