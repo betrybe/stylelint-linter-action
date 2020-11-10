@@ -1,0 +1,18 @@
+[
+  {
+    "source": "/Users/jean/betrybe/stylelint-linter-action/__tests__/fixtures/projects/frontend/main.css",
+    "deprecations": [],
+    "invalidOptionWarnings": [],
+    "parseErrors": [],
+    "errored": true,
+    "warnings": [
+      {
+        "line": 4,
+        "column": 3,
+        "rule": "property-no-unknown",
+        "severity": "error",
+        "text": "Unexpected unknown property \"nokey\" (property-no-unknown)"
+      }
+    ]
+  }
+]

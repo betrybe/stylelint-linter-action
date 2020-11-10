@@ -1,0 +1,25 @@
+[
+  {
+    "source": "/Users/jean/betrybe/stylelint-linter-action/__tests__/fixtures/projects/frontend/main.css",
+    "deprecations": [],
+    "invalidOptionWarnings": [],
+    "parseErrors": [],
+    "errored": false,
+    "warnings": [
+      {
+        "line": 5,
+        "column": 10,
+        "rule": "color-no-invalid-hex",
+        "severity": "warning",
+        "text": "Unexpected invalid hex color \"#ye\" (color-no-invalid-hex)"
+      },
+      {
+        "line": 4,
+        "column": 3,
+        "rule": "property-no-unknown",
+        "severity": "warning",
+        "text": "Unexpected unknown property \"nokey\" (property-no-unknown)"
+      }
+    ]
+  }
+]
