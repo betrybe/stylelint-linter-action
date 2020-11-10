@@ -1,6 +1,7 @@
 name: 'Push'
 on:
   pull_request:
+    types: [opened, synchronize]
 
 jobs:
   unit:
