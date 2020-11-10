@@ -1,10 +1,10 @@
-name: 'Push'
+name: 'Tests'
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  unit:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
