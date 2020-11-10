@@ -1,9 +1,0 @@
-{
-  "root": true,
-  "rules": {
-    "max-params": [
-      "error",
-      4
-    ]
-  }
-}

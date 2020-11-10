@@ -1,0 +1,15 @@
+{
+  "name": "stylelint-lint-action-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0"
+  }
+}

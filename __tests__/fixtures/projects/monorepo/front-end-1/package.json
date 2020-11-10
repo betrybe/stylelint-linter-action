@@ -1,5 +1,5 @@
 {
-  "name": "linter-evaluator-projeto1",
+  "name": "stylelint-lint-action-frontend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^7.6.0"
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0"
   }
 }
