@@ -13,18 +13,18 @@ const run = async () => {
     const npmStatus = runNpm(root);
     const { status: stylelintStatus, outcomes: stylelintOutcomes } = runStylelint(root);
     const status = npmStatus + stylelintStatus;
-    // const feedbackMessage = buildFeedbackMessage(stylelintOutcomes, root);
+    const feedbackMessage = buildFeedbackMessage(stylelintOutcomes, root);
 
     console.log('Exit code:', status);
     console.log('All errors:', stylelintOutcomes);
-    // console.log('Feedback message:\n', feedbackMessage);
+    console.log('Feedback message:\n', feedbackMessage);
 
-    // await client.issues.createComment({
-    //   owner,
-    //   repo,
-    //   issue_number: number,
-    //   body: feedbackMessage,
-    // });
+    await client.issues.createComment({
+      owner,
+      repo,
+      issue_number: number,
+      body: feedbackMessage,
+    });
 
     process.exit(status);
   } catch (error) {
