@@ -54,7 +54,7 @@ describe('Running stylelint', () => {
     spawnSync.mockReturnValue({ status: 1, stdout: JSON.stringify(stylelintResultWithError) });
 
     const packageDirectory = '/path/to/project';
-    const packageFile = `${packageDirectory}/.eslintrc.json`;
+    const packageFile = `${packageDirectory}/.stylelintrc.json`;
     const receivedStatus = runStylelintWithConfigFile(packageFile);
 
     expect(receivedStatus).toStrictEqual({ status: 1, outcomes: stylelintResultWithError });
