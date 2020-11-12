@@ -4,10 +4,10 @@ const buildFeedbackMessage = (stylelintOutcomes, root) => {
 
   let feedbackMessage = [];
 
-  feedbackMessage.push(feedBackTitleMessage('erro', errorCount));
+  feedbackMessage.push(feedbackTitleMessage('erro', errorCount));
   feedbackMessage = addIssueLineMessage(feedbackMessage, errorIssues, true);
 
-  feedbackMessage.push(feedBackTitleMessage('aviso', warningCount));
+  feedbackMessage.push(feedbackTitleMessage('aviso', warningCount));
   feedbackMessage = addIssueLineMessage(feedbackMessage, warningIssues);
 
   return feedbackMessage.join('\n');
@@ -36,12 +36,9 @@ const extractStylelintIssues = (stylelintOutcomes) => {
 
 const splitIssues = (issues, root) => {
   return issues.reduce((total, currentValue) => {
-    let errorIssues = [];
-    let warningIssues = [];
     const { source, error, warning } = currentValue;
-
-    errorIssues = buildIssuesMessage(source, error, root);
-    warningIssues = buildIssuesMessage(source, warning, root);
+    const errorIssues = buildIssuesMessage(source, error, root);
+    const warningIssues = buildIssuesMessage(source, warning, root);
 
     return {
       errorIssues: total.errorIssues.concat(...errorIssues),
@@ -51,7 +48,7 @@ const splitIssues = (issues, root) => {
 };
 
 const buildIssuesMessage = (source, issues, root) => {
-  let messages = [];
+  const messages = [];
   if (issues.length > 0) {
     messages.push(buildFileSection(source, root));
     issues.map(({ line, text }) => messages.push(buildDetailedMessage(line, text)));
@@ -66,7 +63,7 @@ const buildFileSection = (filePath, root) => {
 
 const buildDetailedMessage = (line, message) => `- Linha **${line}**: ${message}`;
 
-const feedBackTitleMessage = (issueType, count) => {
+const feedbackTitleMessage = (issueType, count) => {
   if (count === 0) return `### Nenhum ${issueType} encontrado.`;
   if (count === 1) return `### Foi encontrado 1 ${issueType}.\n`;
   return `### Foram encontrados ${count} ${issueType}s.\n`;
