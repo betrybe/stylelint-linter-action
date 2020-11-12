@@ -4,6 +4,7 @@ jest.mock('../findFilesBy');
 const findFilesBy = require('../findFilesBy');
 const runStylelintWithConfigFile = require('../runStylelintWithConfigFile');
 const runStylelint = require('../runStylelint');
+const stylelintResultWithNoError = require('./fixtures/stylelint-results/noError.json');
 const stylelintResultWithOneError = require('./fixtures/stylelint-results/oneError.json');
 
 describe('Stylelint analysis', () => {
@@ -17,9 +18,9 @@ describe('Stylelint analysis', () => {
       const stylelintFile = `${directory}/.stylelintrc.json`;
 
       findFilesBy.mockReturnValue([stylelintFile]);
-      runStylelintWithConfigFile.mockReturnValue({ status: 0, outcomes: stylelintResultWithOneError });
+      runStylelintWithConfigFile.mockReturnValue({ status: 0, outcomes: stylelintResultWithNoError });
 
-      expect(runStylelint(directory)).toStrictEqual({ status: 0, outcomes: stylelintResultWithOneError });
+      expect(runStylelint(directory)).toStrictEqual({ status: 0, outcomes: stylelintResultWithNoError });
       expect(findFilesBy).toHaveBeenCalledWith(directory, '.stylelintrc.json');
       expect(runStylelintWithConfigFile).toHaveBeenCalledTimes(1);
       expect(runStylelintWithConfigFile).toHaveBeenCalledWith(stylelintFile);
@@ -32,10 +33,10 @@ describe('Stylelint analysis', () => {
 
       findFilesBy.mockReturnValue([stylelintFileFrontProject1, stylelintFileFrontProject2]);
       runStylelintWithConfigFile
-        .mockReturnValueOnce({ status: 0, outcomes: stylelintResultWithOneError })
-        .mockReturnValueOnce({ status: 0, outcomes: stylelintResultWithOneError });
+        .mockReturnValueOnce({ status: 0, outcomes: stylelintResultWithNoError })
+        .mockReturnValueOnce({ status: 0, outcomes: stylelintResultWithNoError });
 
-      expect(runStylelint(directory)).toStrictEqual({ status: 0, outcomes: stylelintResultWithOneError.concat(stylelintResultWithOneError) });
+      expect(runStylelint(directory)).toStrictEqual({ status: 0, outcomes: stylelintResultWithNoError.concat(stylelintResultWithNoError) });
       expect(findFilesBy).toHaveBeenCalledWith(directory, '.stylelintrc.json');
       expect(runStylelintWithConfigFile).toHaveBeenCalledTimes(2);
       expect(runStylelintWithConfigFile).toHaveBeenNthCalledWith(1, stylelintFileFrontProject1);
@@ -74,10 +75,10 @@ describe('Stylelint analysis', () => {
 
       findFilesBy.mockReturnValue([stylelintFileFrontProject1, stylelintFileFrontProject2]);
       runStylelintWithConfigFile
-        .mockReturnValueOnce({ status: 0, outcomes: stylelintResultWithOneError })
+        .mockReturnValueOnce({ status: 0, outcomes: stylelintResultWithNoError })
         .mockReturnValueOnce({ status: 1, outcomes: stylelintResultWithOneError });
 
-      expect(runStylelint(directory)).toStrictEqual({ status: 1, outcomes: stylelintResultWithOneError.concat(stylelintResultWithOneError) });
+      expect(runStylelint(directory)).toStrictEqual({ status: 1, outcomes: stylelintResultWithNoError.concat(stylelintResultWithOneError) });
       expect(findFilesBy).toHaveBeenCalledWith(directory, '.stylelintrc.json');
       expect(runStylelintWithConfigFile).toHaveBeenCalledTimes(2);
       expect(runStylelintWithConfigFile).toHaveBeenNthCalledWith(1, stylelintFileFrontProject1);
