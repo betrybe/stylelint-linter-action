@@ -7,6 +7,7 @@ const multipleWarningsMultipleFiles = require('./fixtures/stylelint-results/mult
 const noError = require('./fixtures/stylelint-results/noError.json');
 const oneError = require('./fixtures/stylelint-results/oneError.json');
 const oneErrorOneFileMultipleWarningsAnotherFile = require('./fixtures/stylelint-results/oneErrorOneFileMultipleWarningsAnotherFile.json');
+const multipleErrosAndWarningsMultipleFiles = require('./fixtures/stylelint-results/multipleErrorsAndWarningsMultipleFiles.json');
 const oneWarning = require('./fixtures/stylelint-results/oneWarning.json');
 
 describe('Feedback message', () => {
@@ -148,6 +149,26 @@ describe('Feedback message', () => {
         '- Linha **4**: Unexpected unknown property \"nokey\" (property-no-unknown)\n' +
         '- Linha **4**: Unexpected unknown property \"nokey\" (property-no-unknown)\n' +
         '- Linha **9**: Unexpected unknown unit \"pixels\" (unit-no-unknown)'
+      );
+    });
+
+    test('When errors and warning are in multiple files, a message listing both errors and warnings is returned', () => {
+      expect(buildFeedbackMessage(multipleErrosAndWarningsMultipleFiles, './')).toBe(
+        '### Foram encontrados 2 erros.\n' +
+        '\n' +
+        '#### Arquivo `/frontend/main.css`\n'+
+        '\n' +
+        '- Linha **5**: Unexpected invalid hex color \"#ye\" (color-no-invalid-hex)\n' +
+        '\n' +
+        '### Foram encontrados 3 avisos.\n' +
+        '\n' +
+        '#### Arquivo `/frontend/main.css`\n'+
+        '\n' +
+        '- Linha **4**: Unexpected unknown property \"nokey\" (property-no-unknown)\n' +
+        '- Linha **9**: Unexpected unknown unit \"pixels\" (unit-no-unknown)\n' +
+        '#### Arquivo `/frontend/sidebar.css`\n' +
+        '\n' +
+        '- Linha **4**: Unexpected unknown property \"nokey\" (property-no-unknown)'
       );
     });
   });

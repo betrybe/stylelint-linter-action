@@ -1,6 +1,6 @@
 [
   {
-    "source": "/Users/jean/betrybe/stylelint-linter-action/__tests__/fixtures/projects/frontend/main.css",
+    "source": "/frontend/main.css",
     "deprecations": [],
     "invalidOptionWarnings": [],
     "parseErrors": [],
@@ -30,7 +30,7 @@
     ]
   },
   {
-    "source": "/Users/jean/betrybe/stylelint-linter-action/__tests__/fixtures/projects/frontend/sidebar.css",
+    "source": "/frontend/sidebar.css",
     "deprecations": [],
     "invalidOptionWarnings": [],
     "parseErrors": [],
