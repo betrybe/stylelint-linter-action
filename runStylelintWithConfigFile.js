@@ -13,6 +13,7 @@ const runStylelintWithConfigFile = (file) => {
       '--config', path.basename(file),
       '--formatter', 'json',
       '--ignore-disables',
+      '--allow-empty-input',
     ],
     { cwd: path.dirname(file) },
   );

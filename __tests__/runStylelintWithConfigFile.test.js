@@ -22,6 +22,7 @@ describe('Running stylelint', () => {
         '--config', '.stylelintrc.json',
         '--formatter', 'json',
         '--ignore-disables',
+        '--allow-empty-input',
       ],
       { cwd: packageDirectory },
     );
@@ -45,6 +46,7 @@ describe('Running stylelint', () => {
         '--config', '.stylelintrc.json',
         '--formatter', 'json',
         '--ignore-disables',
+        '--allow-empty-input',
       ],
       { cwd: packageDirectory },
     );
@@ -66,6 +68,7 @@ describe('Running stylelint', () => {
         '--config', '.stylelintrc.json',
         '--formatter', 'json',
         '--ignore-disables',
+        '--allow-empty-input',
       ],
       { cwd: packageDirectory },
     );
