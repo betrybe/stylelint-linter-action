@@ -1,7 +1,7 @@
 {
   "name": "stylelint-linter-action",
   "version": "1.0.0",
-  "description": "JavaScript Linter Action",
+  "description": "Stylelint Linter Action",
   "main": "index.js",
   "scripts": {
     "pack": "ncc build index.js",
