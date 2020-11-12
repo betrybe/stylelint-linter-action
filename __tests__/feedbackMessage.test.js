@@ -153,12 +153,17 @@ describe('Feedback message', () => {
     });
 
     test('When errors and warning are in multiple files, a message listing both errors and warnings is returned', () => {
+      console.log(buildFeedbackMessage(multipleErrosAndWarningsMultipleFiles, './'))
       expect(buildFeedbackMessage(multipleErrosAndWarningsMultipleFiles, './')).toBe(
         '### Foram encontrados 2 erros.\n' +
         '\n' +
         '#### Arquivo `/frontend/main.css`\n'+
         '\n' +
         '- Linha **5**: Unexpected invalid hex color \"#ye\" (color-no-invalid-hex)\n' +
+        '' +
+        '#### Arquivo `/frontend/sidebar.css`\n'+
+        '\n' +
+        '- Linha **8**: Unexpected duplicate name serif (font-family-no-duplicate-names)\n' +
         '\n' +
         '### Foram encontrados 3 avisos.\n' +
         '\n' +
@@ -166,7 +171,7 @@ describe('Feedback message', () => {
         '\n' +
         '- Linha **4**: Unexpected unknown property \"nokey\" (property-no-unknown)\n' +
         '- Linha **9**: Unexpected unknown unit \"pixels\" (unit-no-unknown)\n' +
-        '#### Arquivo `/frontend/sidebar.css`\n' +
+        '#### Arquivo `/frontend/sidebar.css`\n'+
         '\n' +
         '- Linha **4**: Unexpected unknown property \"nokey\" (property-no-unknown)'
       );

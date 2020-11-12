@@ -200,88 +200,33 @@ function onceStrict (fn) {
 /***/ 51:
 /***/ (function(module) {
 
-const countageFieldNameByType = (issueType) => (issueType === 'erro' ? 'errorCount' : 'warningCount');
-
-const issueSeverityToConsider = (issueType) => (issueType === 'erro' ? 2 : 1);
-
-const getIssuesCount = (stylelintOutcomes, issueType) => {
-  const countageToConsider = countageFieldNameByType(issueType);
-
-  return stylelintOutcomes.reduce((acc, stylelintOutcome) => acc + stylelintOutcome[countageToConsider], 0);
-};
-
-const buildIssueMessage = (line, message) => `- Linha **${line}**: ${message}`;
-
-const buildFileSection = (filePath) => `#### Arquivo \`${filePath}\`\n`;
-
-const filterMessagesByIssueType = (messages, issueType) => {
-  const severityToConsider = issueSeverityToConsider(issueType);
-
-  return messages.filter(({ severity }) => severity === severityToConsider);
-};
-
-const buildFileIssues = (stylelintOutcomeOnFile, root, issueType) => {
-  const countageTypeToConsider = countageFieldNameByType(issueType);
-  const issuesCount = stylelintOutcomeOnFile[countageTypeToConsider];
-
-  if (issuesCount === 0) return '';
-
-  const { filePath, messages } = stylelintOutcomeOnFile;
-  const relativePathFile = filePath.replace(root, '');
-  const fileSection = `${buildFileSection(relativePathFile)}\n\n`;
-  const messagesToConsider = filterMessagesByIssueType(messages, issueType);
-
-  return messagesToConsider.reduce((acc, issue) => `${acc}${buildIssueMessage(issue)}\n`, fileSection);
-};
-
-const listIssues = (stylelintOutcomes, root, issueType) => (
-  stylelintOutcomes.reduce((acc, currentFile) => acc + buildFileIssues(currentFile, root, issueType), '')
-);
-
-const severity = (issueType) => (issueType === 'erro' ? 'error' : 'warning');
-
-const getSummaryMessage = (stylelintOutcomes, issueType) => {
-  let issuesCount = 0;
-
-  const severityType = severity(issueType);
-
-  stylelintOutcomes.forEach(({ warnings }) => {
-    issuesCount = warnings.reduce((total, issue) => {
-      if (issue.severity === severityType) total++;
-      return total;
-    }, 0);
-  });
-
-  if (issuesCount === 0) return `### Nenhum ${issueType} encontrado.`;
-  if (issuesCount === 1) return `### Foi encontrado 1 ${issueType}.`;
-  return `### Foram encontrados ${issuesCount} ${issueType}s.`;
-};
-
-const buildFeedbackByIssueType = (stylelintOutcomes, root, issueType) => {
-  let feedbackMessage = getSummaryMessage(stylelintOutcomes, issueType);
-
-  if (feedbackMessage !== `### Nenhum ${issueType} encontrado.`) {
-    feedbackMessage = `${feedbackMessage}\n\n${listIssues(stylelintOutcomes, root, issueType)}`;
-  }
-
-  return feedbackMessage;
-};
-
 const buildFeedbackMessage = (stylelintOutcomes, root) => {
-  const stylelintIssues = stylelintOutcomes.reduce((total, currentValue, currentIndex, arr) => {
+  const { issues, errorCount, warningCount } = extractStylelintIssues(stylelintOutcomes);
+  const { errorIssues, warningIssues } = splitIssues(issues, root);
+
+  let feedbackMessage = [];
+
+  feedbackMessage.push(feedbackTitleMessage('erro', errorCount));
+  feedbackMessage = addIssueLineMessage(feedbackMessage, errorIssues, true);
+
+  feedbackMessage.push(feedbackTitleMessage('aviso', warningCount));
+  feedbackMessage = addIssueLineMessage(feedbackMessage, warningIssues);
+
+  return feedbackMessage.join('\n');
+};
+
+const extractStylelintIssues = (stylelintOutcomes) => {
+  return stylelintOutcomes.reduce((total, currentValue) => {
     const { source, warnings } = currentValue;
     let issues = {
       source,
       error: [],
       warning: [],
     };
-    warnings.forEach(({ line, column, severity, text }) => {
-      issues[severity].push({
-        line,
-        column,
-        text,
-      });
-    });
+
+    warnings.forEach(({ line, column, severity, text }) => (
+      issues[severity].push({ line, column, text })
+    ));
 
     return {
       issues: total.issues.concat(issues),
@@ -289,48 +234,49 @@ const buildFeedbackMessage = (stylelintOutcomes, root) => {
       warningCount: total.warningCount + issues.warning.length,
     };
   }, { issues: [], errorCount: 0, warningCount: 0 });
+};
 
-  const { issues, errorCount, warningCount } = stylelintIssues;
-
-  let feedbackMessage = [];
-
-  const { errorFeedbackMessage, warningFeedbackMessage } = issues.reduce((total, currentValue, currentIndex, arr) => {
-    let errorFeedbackMessage = [];
-    let warningFeedbackMessage = [];
-    let relativePathFile = '';
+const splitIssues = (issues, root) => {
+  return issues.reduce((total, currentValue) => {
     const { source, error, warning } = currentValue;
-
-    if (error.length > 0) {
-      relativePathFile = source.replace(root, '');
-      errorFeedbackMessage.push(buildFileSection(relativePathFile));
-      error.map(({ line, text }) => errorFeedbackMessage.push(buildIssueMessage(line, text)));
-    }
-
-    if (warning.length > 0) {
-      relativePathFile = source.replace(root, '');
-      warningFeedbackMessage.push(buildFileSection(relativePathFile));
-      warning.map(({ line, text }) => warningFeedbackMessage.push(buildIssueMessage(line, text)));
-    }
+    const errorIssues = buildIssuesMessage(source, error, root);
+    const warningIssues = buildIssuesMessage(source, warning, root);
 
     return {
-      errorFeedbackMessage: total.errorFeedbackMessage.concat(...errorFeedbackMessage),
-      warningFeedbackMessage: total.warningFeedbackMessage.concat(...warningFeedbackMessage),
+      errorIssues: total.errorIssues.concat(...errorIssues),
+      warningIssues: total.warningIssues.concat(...warningIssues),
     };
-  }, { errorFeedbackMessage: [], warningFeedbackMessage: [] });
+  }, { errorIssues: [], warningIssues: [] });
+};
 
-  if (errorCount === 0) feedbackMessage.push(`### Nenhum erro encontrado.`);
-  if (errorCount === 1) feedbackMessage.push(`### Foi encontrado 1 erro.\n`);
-  if (errorCount > 1) feedbackMessage.push(`### Foram encontrados ${errorCount} erros.\n`);
-  if (errorFeedbackMessage.length > 0) feedbackMessage.push(...errorFeedbackMessage, '');
+const buildIssuesMessage = (source, issues, root) => {
+  const messages = [];
+  if (issues.length > 0) {
+    messages.push(buildFileSection(source, root));
+    issues.map(({ line, text }) => messages.push(buildDetailedMessage(line, text)));
+  }
+  return [...messages];
+};
 
-  if (warningCount === 0) feedbackMessage.push(`### Nenhum aviso encontrado.`);
-  if (warningCount === 1) feedbackMessage.push(`### Foi encontrado 1 aviso.\n`);
-  if (warningCount > 1) feedbackMessage.push(`### Foram encontrados ${warningCount} avisos.\n`);
-  if (warningFeedbackMessage.length > 0) feedbackMessage.push(...warningFeedbackMessage);
+const buildFileSection = (filePath, root) => {
+  const relativePathFile = filePath.replace(root, '');
+  return `#### Arquivo \`${relativePathFile}\`\n`;
+};
 
-  console.log(feedbackMessage);
+const buildDetailedMessage = (line, message) => `- Linha **${line}**: ${message}`;
 
-  return feedbackMessage.join('\n');
+const feedbackTitleMessage = (issueType, count) => {
+  if (count === 0) return `### Nenhum ${issueType} encontrado.`;
+  if (count === 1) return `### Foi encontrado 1 ${issueType}.\n`;
+  return `### Foram encontrados ${count} ${issueType}s.\n`;
+};
+
+const addIssueLineMessage = (messages, issues, newline = false) => {
+  if (issues.length > 0) {
+    messages.push(...issues);
+    if (newline) messages.push('');
+  }
+  return [...messages];
 };
 
 module.exports = buildFeedbackMessage;
@@ -1127,6 +1073,7 @@ const runStylelintWithConfigFile = (file) => {
       '--config', path.basename(file),
       '--formatter', 'json',
       '--ignore-disables',
+      '--allow-empty-input',
     ],
     { cwd: path.dirname(file) },
   );
