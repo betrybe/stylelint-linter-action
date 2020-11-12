@@ -153,7 +153,6 @@ describe('Feedback message', () => {
     });
 
     test('When errors and warning are in multiple files, a message listing both errors and warnings is returned', () => {
-      console.log(buildFeedbackMessage(multipleErrosAndWarningsMultipleFiles, './'))
       expect(buildFeedbackMessage(multipleErrosAndWarningsMultipleFiles, './')).toBe(
         '### Foram encontrados 2 erros.\n' +
         '\n' +
