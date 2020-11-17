@@ -55,7 +55,7 @@ If you have multiple projects to be evaluated with `Stylelint` in the repository
 
 ### Configure the `Stylelint` analysis **exclusively** via `.stylelintrc.json`
 
-In order to configure the `Stylelint` analysis for your project, you must create a `.stylelintrc.json` file at the root of your project. Therefore, beware the following:
+In order to configure the `Stylelint` analysis for your project, you must create a `.stylelintrc.json` file at the root of your project. Therefore, beware of the following:
 
 - There cannot be present `Stylelint` configurations in the `package.json` of the project;
 
