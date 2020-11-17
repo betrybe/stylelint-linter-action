@@ -1,0 +1,18 @@
+[
+  {
+    "source": "/frontend/main.css",
+    "deprecations": [],
+    "invalidOptionWarnings": [],
+    "parseErrors": [],
+    "errored": false,
+    "warnings": [
+      {
+        "line": 4,
+        "column": 3,
+        "rule": "property-no-unknown",
+        "severity": "warning",
+        "text": "Unexpected unknown property \"nokey\" (property-no-unknown)"
+      }
+    ]
+  }
+]

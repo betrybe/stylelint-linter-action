@@ -1,0 +1,48 @@
+[
+  {
+    "source": "/frontend/main.css",
+    "deprecations": [],
+    "invalidOptionWarnings": [],
+    "parseErrors": [],
+    "errored": true,
+    "warnings": [
+      {
+        "line": 5,
+        "column": 10,
+        "rule": "color-no-invalid-hex",
+        "severity": "error",
+        "text": "Unexpected invalid hex color \"#ye\" (color-no-invalid-hex)"
+      }
+    ]
+  },
+  {
+    "source": "/frontend/sidebar.css",
+    "deprecations": [],
+    "invalidOptionWarnings": [],
+    "parseErrors": [],
+    "errored": true,
+    "warnings": [
+      {
+        "line": 4,
+        "column": 3,
+        "rule": "property-no-unknown",
+        "severity": "warning",
+        "text": "Unexpected unknown property \"nokey\" (property-no-unknown)"
+      },
+      {
+        "line": 4,
+        "column": 3,
+        "rule": "property-no-unknown",
+        "severity": "warning",
+        "text": "Unexpected unknown property \"nokey\" (property-no-unknown)"
+      },
+      {
+        "line": 9,
+        "column": 10,
+        "rule": "unit-no-unknown",
+        "severity": "warning",
+        "text": "Unexpected unknown unit \"pixels\" (unit-no-unknown)"
+      }
+    ]
+  }
+]

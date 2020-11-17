@@ -1,0 +1,35 @@
+{
+  "name": "stylelint-linter-action",
+  "version": "1.0.0",
+  "description": "Stylelint Linter Action",
+  "main": "index.js",
+  "scripts": {
+    "pack": "ncc build index.js",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/betrybe/stylelint-linter-action.git"
+  },
+  "keywords": [],
+  "author": "Trybe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/betrybe/stylelint-linter-action/issues"
+  },
+  "homepage": "https://github.com/betrybe/stylelint-linter-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3",
+    "jest": "^26.4.0"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "__tests__/fixtures"
+    ]
+  }
+}
