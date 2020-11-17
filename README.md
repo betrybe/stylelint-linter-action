@@ -16,7 +16,7 @@ This action accepts the following configuration parameters via `with:`
 
 ```yaml
 steps:
-  - uses: actions/setup-node@v1.4.3
+  - uses: actions/setup-node@v1.4.4
     with:
       node-version: '12'
   - name: Static code analysis step
@@ -26,6 +26,14 @@ steps:
 ```
 
 Check the latest version to use [here](https://github.com/betrybe/stylelint-linter-action/releases).
+
+## Running command locally
+
+This GitHub Action run the command:
+
+```
+npx stylelint **/*.css --config .stylelintrc.json --formatter json --ignore-disables --allow-empty-input
+```
 
 ## Project constraints
 
