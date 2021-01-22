@@ -61,6 +61,7 @@ steps:
     uses: betrybe/stylelint-linter-action@v1
     with:
       token: ${{ secrets.GITHUB_TOKEN }}
+      pr_number: ${{ github.event.inputs.pr_number }}
 ```
 
 Check the latest version to use [here](https://github.com/betrybe/stylelint-linter-action/releases).
