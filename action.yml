@@ -4,6 +4,9 @@ inputs:
   token:
     description: "The GitHub token to use for making API requests"
     required: true
+  pr_number:
+    description: 'Pull Request number that dispatched the workflow'
+    required: true
 runs:
   using: "node12"
   main: "dist/index.js"

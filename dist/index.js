@@ -367,7 +367,7 @@ const run = async () => {
     const root = process.env.GITHUB_WORKSPACE || process.cwd();
     const token = core.getInput('token', { required: true });
     const client = github.getOctokit(token);
-    const { owner, repo, number } = github.context.issue;
+    const { owner, repo } = github.context.issue;
     const npmStatus = runNpm(root);
     const { status: stylelintStatus, outcomes: stylelintOutcomes } = runStylelint(root);
     const status = npmStatus + stylelintStatus;
@@ -380,7 +380,7 @@ const run = async () => {
     await client.issues.createComment({
       owner,
       repo,
-      issue_number: number,
+      issue_number: process.env.INPUT_PR_NUMBER,
       body: feedbackMessage,
     });
 
