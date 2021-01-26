@@ -4,7 +4,7 @@ A GitHub action that evaluates projects with [Stylelint](https://stylelint.io/) 
 
 ## Development
 
-**P.S.:** Github actions will run `dist/index.js` to execute this action, so you must to run `npm run pack`if you want apply any changes.
+⚠️ Github actions will run `dist/index.js` to execute this action, so you *must run* `npm run pack` and commit the changes made at `dist/index.js` if you want to apply any changes. ⚠️
 
 Install the dependencies
 ```bash
