@@ -123,6 +123,10 @@ const readFiles = (startPath) => {
 const findFilesBy = (startDirectory, stringSearch) => {
   const directories = [startDirectory];
   const foundFiles = [];
+  const pathsToIgnore = fs.readFileSync(`${startDirectory}/.stylelintignore`)
+    .toString()
+    .split('\n')
+    .map((pathToIgnore) => path.join(startDirectory, pathToIgnore));
 
   while (directories.length > 0) {
     const currentDirectory = directories.pop();
@@ -132,6 +136,7 @@ const findFilesBy = (startDirectory, stringSearch) => {
       const filename = path.join(currentDirectory, file);
 
       if (filename.indexOf('node_modules') !== -1) return;
+      if (pathsToIgnore.some((ignorePath) => filename.startsWith(ignorePath))) return;
 
       const stat = fs.lstatSync(filename);
 
@@ -1495,6 +1500,7 @@ const runStylelintWithConfigFile = __webpack_require__(370);
 
 const runStylelint = (root) => {
   const files = findFilesBy(root, '.stylelintrc.json');
+  console.log('====> FILES RETURNED', files);
 
   return files.reduce((acc, file) => {
     const { status, outcomes } = runStylelintWithConfigFile(file);
