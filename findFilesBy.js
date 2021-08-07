@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const minimatch = require("minimatch");
 
 const readFiles = (startPath) => {
   if (!fs.existsSync(startPath)) {
@@ -27,7 +28,7 @@ const findFilesBy = (startDirectory, stringSearch) => {
       const filename = path.join(currentDirectory, file);
 
       if (filename.indexOf('node_modules') !== -1) return;
-      if (pathsToIgnore.some((ignorePath) => filename.startsWith(ignorePath))) return;
+      if (pathsToIgnore.some((pathToIgnore) => minimatch(filename, pathToIgnore))) return;
 
       const stat = fs.lstatSync(filename);
 
