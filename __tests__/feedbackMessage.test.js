@@ -11,6 +11,12 @@ const multipleErrosAndWarningsMultipleFiles = require('./fixtures/stylelint-resu
 const oneWarning = require('./fixtures/stylelint-results/oneWarning.json');
 
 describe('Feedback message', () => {
+  beforeAll(() => {
+    console.log = jest.fn();
+    console.info = jest.fn();
+    console.error = jest.fn();
+  });
+
   describe('No issue is found', () => {
     test('When there is no file to be evaluated, a no issue encountered message is returned', () => {
       expect(buildFeedbackMessage([], './')).toBe(

@@ -4,6 +4,12 @@ const { spawnSync } = require('child_process');
 const runNpmOnFile = require('../runNpmOnFile');
 
 describe('Running npm', () => {
+  beforeAll(() => {
+    console.log = jest.fn();
+    console.info = jest.fn();
+    console.error = jest.fn();
+  });
+
   test('When there is package.json to install the dependencies and the execution succeeds, a success status is returned', () => {
     spawnSync.mockReturnValue({ status: 0 });
 

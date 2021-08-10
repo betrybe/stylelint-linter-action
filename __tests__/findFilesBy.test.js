@@ -1,13 +1,31 @@
 const findFilesBy = require('../findFilesBy');
+const fs = jest.requireActual('fs');
 
 describe('Find files in directory', () => {
   const rootDirectory = process.cwd();
+
+  beforeAll(() => {
+    console.log = jest.fn();
+    console.info = jest.fn();
+    console.error = jest.fn();
+  });
 
   describe('Files are found', () => {
     test('When one file is found, a one element list containing it is returned', () => {
       const startPath = `${rootDirectory}/__tests__/fixtures/projects/front-end`;
       const givenResult = findFilesBy(startPath, '.stylelintrc.json');
       const expectedResult = [`${startPath}/.stylelintrc.json`];
+
+      expect(givenResult).toEqual(expectedResult);
+    });
+
+    test('When one file is found, but it is listed in the .stylelintignore', () => {
+      const startPath = `${rootDirectory}/__tests__/fixtures/projects/style-lint-ignore`;
+      const givenResult = findFilesBy(startPath, 'ignore.css');
+      const expectedResult = [
+        `${startPath}/not_ignore.css`,
+        `${startPath}/src/not_ignore.css`,
+      ];
 
       expect(givenResult).toEqual(expectedResult);
     });
@@ -41,14 +59,13 @@ describe('Find files in directory', () => {
   });
 
   test('Disregards files in node_modules directory', () => {
-    const fs = require('fs');
-
     jest
       .spyOn(fs, 'readdirSync')
       .mockReturnValue(['package.json']);
 
     jest
       .spyOn(fs, 'existsSync')
+      .mockReturnValueOnce(false)
       .mockReturnValue(true);
 
     const startPath = '/my-project/node_modules/my-package';

@@ -6,6 +6,12 @@ const stylelintResultWithoutError = require('./fixtures/stylelint-results/noErro
 const runStylelintWithConfigFile = require('../runStylelintWithConfigFile');
 
 describe('Running stylelint', () => {
+  beforeAll(() => {
+    console.log = jest.fn();
+    console.info = jest.fn();
+    console.error = jest.fn();
+  });
+
   test('When there is a stylelint config file to analyse and the analysis shows no issue, a success status is returned', () => {
     spawnSync.mockReturnValue({ status: 0, stdout: JSON.stringify(stylelintResultWithoutError) });
 
