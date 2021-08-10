@@ -6,6 +6,12 @@ const runNpmOnFile = require('../runNpmOnFile');
 const runNpm = require('../runNpm');
 
 describe('Running npm', () => {
+  beforeAll(() => {
+    console.log = jest.fn();
+    console.info = jest.fn();
+    console.error = jest.fn();
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });

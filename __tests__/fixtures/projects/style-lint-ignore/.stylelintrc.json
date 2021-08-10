@@ -1,0 +1,19 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "font-family-no-duplicate-names": true,
+    "property-no-unknown": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "unit-no-unknown": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "color-no-invalid-hex": true
+  }
+}

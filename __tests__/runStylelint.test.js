@@ -8,6 +8,12 @@ const stylelintResultWithNoError = require('./fixtures/stylelint-results/noError
 const stylelintResultWithOneError = require('./fixtures/stylelint-results/oneError.json');
 
 describe('Stylelint analysis', () => {
+  beforeAll(() => {
+    console.log = jest.fn();
+    console.info = jest.fn();
+    console.error = jest.fn();
+  });
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
