@@ -121,29 +121,14 @@ const readFiles = (startPath) => {
   return fs.readdirSync(startPath);
 };
 
-const getPathsToIgnore = (startDirectory) => {
+const findFilesBy = (startDirectory, stringSearch) => {
+  const directories = [startDirectory];
+  const foundFiles = [];
   const pathsToIgnore = [
     `${startDirectory}/.git`,
     `${startDirectory}/.github`,
     `${startDirectory}/.trybe`,
   ];
-
-  if (fs.existsSync(`${startDirectory}/.stylelintignore`)) {
-    const styleLintIgnore = fs.readFileSync(`${startDirectory}/.stylelintignore`)
-      .toString()
-      .split('\n')
-      .map((pathToIgnore) => path.join(startDirectory, pathToIgnore));
-
-    pathsToIgnore.push(...styleLintIgnore);
-  }
-
-  return pathsToIgnore;
-};
-
-const findFilesBy = (startDirectory, stringSearch) => {
-  const directories = [startDirectory];
-  const foundFiles = [];
-  const pathsToIgnore = getPathsToIgnore(startDirectory);
 
   while (directories.length > 0) {
     const currentDirectory = directories.pop();
