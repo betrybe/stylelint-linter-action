@@ -5,7 +5,6 @@ const minimatch = require("minimatch");
 const readFiles = (startPath) => {
   if (!fs.existsSync(startPath)) {
     console.log('Path does not exist:', startPath);
-
     return [];
   }
 
