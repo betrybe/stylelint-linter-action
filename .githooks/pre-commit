@@ -1,0 +1,4 @@
+#!/bin/sh
+
+npm run pack
+git add dist/index.js

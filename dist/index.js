@@ -114,7 +114,6 @@ const minimatch = __webpack_require__(93);
 const readFiles = (startPath) => {
   if (!fs.existsSync(startPath)) {
     console.log('Path does not exist:', startPath);
-
     return [];
   }
 

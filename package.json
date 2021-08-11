@@ -6,7 +6,8 @@
   "scripts": {
     "pack": "ncc build index.js",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "preinstall": "git config core.hooksPath .githooks"
   },
   "repository": {
     "type": "git",
