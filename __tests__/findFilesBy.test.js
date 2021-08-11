@@ -19,13 +19,10 @@ describe('Find files in directory', () => {
       expect(givenResult).toEqual(expectedResult);
     });
 
-    test('When one file is found, but it is listed in the .stylelintignore', () => {
-      const startPath = `${rootDirectory}/__tests__/fixtures/projects/style-lint-ignore`;
-      const givenResult = findFilesBy(startPath, 'ignore.css');
-      const expectedResult = [
-        `${startPath}/not_ignore.css`,
-        `${startPath}/src/not_ignore.css`,
-      ];
+    test('Ignore .github files', () => {
+      const startPath = `${rootDirectory}/__tests__/fixtures/projects/front-end`;
+      const givenResult = findFilesBy(startPath, 'main.css');
+      const expectedResult = [`${startPath}/main.css`];
 
       expect(givenResult).toEqual(expectedResult);
     });
