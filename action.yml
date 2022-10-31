@@ -8,5 +8,5 @@ inputs:
     description: 'Pull Request number that dispatched the workflow'
     required: true
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
